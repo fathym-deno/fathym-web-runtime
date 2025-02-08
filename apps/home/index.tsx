@@ -1,5 +1,6 @@
-import { ChatSet } from '@fathym/atomic';
-import { EaCRuntimeHandlerResult, PageProps } from '@fathym/eac-runtime';
+import { ChatSet } from '@fathym/atomic-design-kit';
+import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
+import { PageProps } from '@fathym/eac-applications/runtime/preact';
 import Counter from '../islands/Counter.tsx';
 import CompanyThinky from '../islands/organisms/CompanyThinky.tsx';
 import { CompanyWebState } from '../../src/state/CompanyWebState.ts';
@@ -15,7 +16,7 @@ type IndexPageData = {
   Text: string;
 };
 
-export const handler: EaCRuntimeHandlerResult<CompanyWebState, IndexPageData> = {
+export const handler: EaCRuntimeHandlerSet<CompanyWebState, IndexPageData> = {
   GET: async (_req, ctx) => {
     const resp = await fetch(`${Deno.env.get('API_ROOT')!}/state`);
 
@@ -45,7 +46,7 @@ export default function Index({ Data }: PageProps<IndexPageData>) {
       jwt={Data.JWT}
       root={Data.Root}
     >
-      <div class='py-16 px-4 bg-slate-500'>
+      <div class='py-16 px-4 bg-slate-500/75'>
         <div class='mx-auto block w-[350px] text-center'>
           <h1 class='text-4xl'>{Data.Name}</h1>
           <p class='text-lg'>{Data.Text}</p>

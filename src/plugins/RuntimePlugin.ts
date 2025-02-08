@@ -1,25 +1,29 @@
-import { EaCRuntimeConfig, EaCRuntimePlugin, EaCRuntimePluginConfig } from '@fathym/eac-runtime';
-import {
-  EaCBaseHREFModifierDetails,
-  EaCKeepAliveModifierDetails,
-  EaCPreactAppProcessor,
-  EaCTailwindProcessor,
-} from '@fathym/eac/applications';
-import {
-  EaCJSRDistributedFileSystemDetails,
-  EaCLocalDistributedFileSystemDetails,
-} from '@fathym/eac/dfs';
-import { EaCDenoKVDatabaseDetails } from '@fathym/eac/databases';
 import { EaCAtomicIconsProcessor } from '@fathym/atomic-icons';
 import { FathymAtomicIconsPlugin } from '@fathym/atomic-icons/plugin';
 import { DefaultMyCoreProcessorHandlerResolver } from './DefaultMyCoreProcessorHandlerResolver.ts';
 import { IoCContainer } from '@fathym/ioc';
+import { EaCRuntimePlugin, EaCRuntimePluginConfig } from '@fathym/eac/runtime/plugins';
+import { EaCRuntimeConfig } from '@fathym/eac/runtime/config';
+import { EverythingAsCode } from '@fathym/eac';
+import { EverythingAsCodeApplications } from '@fathym/eac-applications';
+import { EaCPreactAppProcessor, EaCTailwindProcessor } from '@fathym/eac-applications/processors';
+import { EaCDenoKVDetails, EverythingAsCodeDenoKV } from '@fathym/eac-deno-kv';
+import {
+  EaCJSRDistributedFileSystemDetails,
+  EaCLocalDistributedFileSystemDetails,
+} from '@fathym/eac/dfs';
+import {
+  EaCBaseHREFModifierDetails,
+  EaCKeepAliveModifierDetails,
+} from '@fathym/eac-applications/modifiers';
 
 export default class RuntimePlugin implements EaCRuntimePlugin {
   constructor() {}
 
   public Setup(config: EaCRuntimeConfig) {
-    const pluginConfig: EaCRuntimePluginConfig = {
+    const pluginConfig: EaCRuntimePluginConfig<
+      EverythingAsCode & EverythingAsCodeApplications & EverythingAsCodeDenoKV
+    > = {
       Name: RuntimePlugin.name,
       Plugins: [new FathymAtomicIconsPlugin()],
       IoC: new IoCContainer(),
@@ -27,8 +31,8 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
         Projects: {
           core: {
             Details: {
-              Name: 'Sink Micro Applications',
-              Description: 'The Kitchen Sink Micro Applications to use.',
+              Name: 'Golden Path Web Runtime',
+              Description: 'The Golden Path Web Runtime to use.',
               Priority: 100,
             },
             ResolverConfigs: {
@@ -124,14 +128,14 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
             } as EaCTailwindProcessor,
           },
         },
-        Databases: {
+        DenoKVs: {
           thinky: {
             Details: {
               Type: 'DenoKV',
               Name: 'Thinky',
               Description: 'The Deno KV database to use for thinky',
               DenoKVPath: Deno.env.get('THINKY_DENO_KV_PATH') || undefined,
-            } as EaCDenoKVDatabaseDetails,
+            } as EaCDenoKVDetails,
           },
         },
         DFSs: {
@@ -140,6 +144,9 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               Type: 'Local',
               FileRoot: './apps/components/',
               Extensions: ['tsx'],
+              WorkerPath: import.meta.resolve(
+                '@fathym/eac/dfs/workers/local',
+              ),
             } as EaCLocalDistributedFileSystemDetails,
           },
           'local:apps/home': {
@@ -148,6 +155,9 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               FileRoot: './apps/home/',
               DefaultFile: 'index.tsx',
               Extensions: ['tsx'],
+              WorkerPath: import.meta.resolve(
+                '@fathym/eac/dfs/workers/local',
+              ),
             } as EaCLocalDistributedFileSystemDetails,
           },
           'local:apps/islands': {
@@ -155,15 +165,18 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               Type: 'Local',
               FileRoot: './apps/islands/',
               Extensions: ['tsx'],
+              WorkerPath: import.meta.resolve(
+                '@fathym/eac/dfs/workers/local',
+              ),
             } as EaCLocalDistributedFileSystemDetails,
           },
           'jsr:@fathym/atomic': {
             Details: {
               Type: 'JSR',
-              Package: '@fathym/atomic',
+              Package: '@fathym/atomic-design-kit',
               Version: '',
               WorkerPath: import.meta.resolve(
-                '@fathym/eac-runtime/workers/jsr',
+                '@fathym/eac/dfs/workers/jsr',
               ),
             } as EaCJSRDistributedFileSystemDetails,
           },
@@ -173,7 +186,7 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               Package: '@fathym/atomic-design-kit',
               Version: '',
               WorkerPath: import.meta.resolve(
-                '@fathym/eac-runtime/workers/jsr',
+                '@fathym/eac/dfs/workers/jsr',
               ),
             } as EaCJSRDistributedFileSystemDetails,
           },

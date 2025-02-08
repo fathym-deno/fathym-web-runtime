@@ -1,4 +1,4 @@
-import { Action, ActionProps } from '@fathym/atomic';
+import { Action, ActionProps } from '@fathym/atomic-design-kit';
 
 type ButtonProps = ActionProps;
 
