@@ -26,19 +26,19 @@
     "version": "deno run -A jsr:@fathym/common@0/build/version"
   },
   "imports": {
-    "@fathym/atomic-design-kit": "jsr:@fathym/atomic-design-kit@0.0.180",
-    "@fathym/atomic-icons": "jsr:@fathym/atomic-icons@0.0.75",
-    "@fathym/code-editor": "jsr:@fathym/code-editor@0.0.22",
-    "@fathym/common": "jsr:@fathym/common@0",
-    "@fathym/eac": "jsr:@fathym/eac@0.2.35",
-    "@fathym/eac-applications": "jsr:@fathym/eac-applications@0.0.53",
-    "@fathym/eac-azure": "jsr:@fathym/eac-azure@0.0.21",
-    "@fathym/eac-deno-kv": "jsr:@fathym/eac-deno-kv@0",
-    "@fathym/eac-identity": "jsr:@fathym/eac-identity@0.0.5",
-    "@fathym/ioc": "jsr:@fathym/ioc@0",
-    "@fathym/msal": "jsr:@fathym/msal@0.0.40",
-    "@fathym/synaptic": "jsr:@fathym/synaptic@0",
-    "@lezer/highlight": "npm:@lezer/highlight",
+    "@fathym/atomic-design-kit": "jsr:@fathym/atomic-design-kit@0.0.237",
+    "@fathym/atomic-icons": "jsr:@fathym/atomic-icons@0.0.76",
+    "@fathym/code-editor": "jsr:@fathym/code-editor@0.0.23",
+    "@fathym/common": "jsr:@fathym/common@0.2.175",
+    "@fathym/eac": "jsr:@fathym/eac@0.2.36",
+    "@fathym/eac-applications": "jsr:@fathym/eac-applications@0.0.54",
+    "@fathym/eac-azure": "jsr:@fathym/eac-azure@0.0.29",
+    "@fathym/eac-deno-kv": "jsr:@fathym/eac-deno-kv@0.0.7",
+    "@fathym/eac-identity": "jsr:@fathym/eac-identity@0.0.6",
+    "@fathym/ioc": "jsr:@fathym/ioc@0.0.13",
+    "@fathym/msal": "jsr:@fathym/msal@0.0.41",
+    "@fathym/synaptic": "jsr:@fathym/synaptic@0.0.204",
+    "@lezer/highlight": "npm:@lezer/highlight@1.2.1",
     "preact": "npm:preact@10.20.1",
     "@std/assert": "jsr:@std/assert@1.0.6",
     "@std/log": "jsr:@std/log@0.224.6",
@@ -56,30 +56,16 @@
     "!configs/*"
   ],
   "lint": {
-    "include": [
-      "apps/",
-      "configs/",
-      "src/",
-      "tests/"
-    ],
+    "include": ["apps/", "configs/", "src/", "tests/"],
     "exclude": [],
     "rules": {
-      "tags": [
-        "recommended"
-      ],
-      "include": [
-        "ban-untagged-todo"
-      ],
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"],
       "exclude": []
     }
   },
   "fmt": {
-    "include": [
-      "apps/",
-      "configs/",
-      "src/",
-      "tests/"
-    ],
+    "include": ["apps/", "configs/", "src/", "tests/"],
     "exclude": [],
     "indentWidth": 2,
     "lineWidth": 100,
@@ -88,9 +74,7 @@
     "singleQuote": true,
     "useTabs": false
   },
-  "unstable": [
-    "kv"
-  ],
+  "unstable": ["kv"],
   "lock": false,
   "compilerOptions": {
     "jsx": "react-jsx",

@@ -193,7 +193,7 @@ export default function Azure({ Data }: PageProps<AzurePageData>) {
   return (
     <ConnectAzure
       cloudAction=''
-      oauthAction='/azure/oauth/signin'
+      oauthAction='/azure/oauth/signin?success_url=/dashboard'
       subAction='/dashboard/api/eac/clouds/subs'
       class='px-4'
       isConnected={Data.isAzureConnected}
