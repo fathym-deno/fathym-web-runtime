@@ -7,6 +7,7 @@ import {
 import { EaCApplicationProcessorConfig } from '@fathym/eac-applications/processors';
 import { EverythingAsCode } from '@fathym/eac';
 import { EverythingAsCodeApplications } from '@fathym/eac-applications';
+import { DefaultMSALProcessorHandlerResolver } from '@fathym/msal';
 
 export class DefaultMyCoreProcessorHandlerResolver implements ProcessorHandlerResolver {
   public async Resolve(
@@ -17,6 +18,12 @@ export class DefaultMyCoreProcessorHandlerResolver implements ProcessorHandlerRe
     const atomicIconResolver = new DefaultAtomicIconsProcessorHandlerResolver();
 
     let resolver = await atomicIconResolver.Resolve(ioc, appProcCfg, eac);
+
+    if (!resolver) {
+      const defaultResolver = new DefaultMSALProcessorHandlerResolver();
+
+      resolver = await defaultResolver.Resolve(ioc, appProcCfg, eac);
+    }
 
     if (!resolver) {
       const defaultResolver = new DefaultProcessorHandlerResolver();

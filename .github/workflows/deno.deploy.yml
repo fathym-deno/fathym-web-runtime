@@ -7,7 +7,7 @@ on:
 
 env:
   ENTRY_POINT: ./main.ts
-  PROJECT_NAME: web-runtime
+  PROJECT_NAME: fathym-web-runtime
 
 jobs:
   deploy:
