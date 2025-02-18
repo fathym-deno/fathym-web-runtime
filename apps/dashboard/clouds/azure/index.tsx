@@ -1,5 +1,5 @@
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { PageProps } from '@fathym/eac-applications/runtime/preact';
+import { PageProps } from '@fathym/eac-applications/preact';
 import { EaCWebState } from '../../../../src/state/EaCWebState.ts';
 import { redirectRequest } from '@fathym/common';
 import { ConnectAzure } from '@fathym/atomic-design-kit';

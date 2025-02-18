@@ -2,7 +2,7 @@ import { EaCManageForm, EnterpriseManagementItem } from '@fathym/atomic-design-k
 import { redirectRequest } from '@fathym/common';
 import { EaCUserRecord, EverythingAsCode } from '@fathym/eac';
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { PageProps } from '@fathym/eac-applications/runtime/preact';
+import { PageProps } from '@fathym/eac-applications/preact';
 import { EaCWebState } from '../../../src/state/EaCWebState.ts';
 import { loadEaCStewardSvc } from '@fathym/eac/steward/clients';
 import {

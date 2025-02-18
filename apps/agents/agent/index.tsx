@@ -1,5 +1,5 @@
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { PageProps } from '@fathym/eac-applications/runtime/preact';
+import { PageProps } from '@fathym/eac-applications/preact';
 import { EaCLinearCircuitDetails } from '@fathym/synaptic';
 import { AgentState } from '../src/AgentState.ts';
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'preact/hooks';
 import { CodeChangesProfile, CodeEditor, CodeEditorHandle, CodeSource } from '@fathym/code-editor';
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { PageProps } from '@fathym/eac-applications/runtime/preact';
+import { PageProps } from '@fathym/eac-applications/preact';
 import { EaCWebState } from '../../../src/state/EaCWebState.ts';
 import CodeEditorThinky from '../../islands/thinky/CodeEditorThinky.tsx';
 import { ChatSet } from '@fathym/atomic-design-kit';

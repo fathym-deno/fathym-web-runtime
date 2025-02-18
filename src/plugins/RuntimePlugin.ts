@@ -2,8 +2,8 @@ import { EaCAtomicIconsProcessor } from '@fathym/atomic-icons';
 import { FathymAtomicIconsPlugin } from '@fathym/atomic-icons/plugin';
 import { DefaultMyCoreProcessorHandlerResolver } from './DefaultMyCoreProcessorHandlerResolver.ts';
 import { IoCContainer } from '@fathym/ioc';
-import { EaCRuntimePlugin, EaCRuntimePluginConfig } from '@fathym/eac/runtime/plugins';
-import { EaCRuntimeConfig } from '@fathym/eac/runtime/config';
+import { EaCRuntimePlugin } from '@fathym/eac/runtime/plugins';
+import { EaCRuntimeConfig, EaCRuntimePluginConfig } from '@fathym/eac/runtime/config';
 import { EverythingAsCode } from '@fathym/eac';
 import { EverythingAsCodeApplications } from '@fathym/eac-applications';
 import {
@@ -93,7 +93,7 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               },
               dashboard: {
                 PathPattern: '/dashboard*',
-                Priority: 100,
+                Priority: 200,
                 IsPrivate: true,
                 IsTriggerSignIn: true,
               },
@@ -116,7 +116,7 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
                 IsTriggerSignIn: true,
               },
               oauth: {
-                PathPattern: '/oauth/*',
+                PathPattern: '/oauth*',
                 Priority: 500,
               },
               tailwind: {
@@ -366,7 +366,7 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
             Details: {
               Type: 'AzureBlobStorage',
               Container: 'deployments',
-              FileRoot: './o-biotech/public-web-about/latest/',
+              FileRoot: 'o-biotech/public-web-about/latest',
               DefaultFile: 'index.html',
               ConnectionString: Deno.env.get('AZURE_STORAGE_CONNECTION_STRING'),
               // WorkerPath: import.meta.resolve(
@@ -491,6 +491,11 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               Scopes: ['openid'],
               TenantID: Deno.env.get('AZURE_AD_TENANT_ID')!, //common
             } as EaCAzureADProviderDetails,
+          },
+        },
+        $GlobalOptions: {
+          DFSs: {
+            PreventWorkers: true,
           },
         },
       },

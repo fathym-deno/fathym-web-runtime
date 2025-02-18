@@ -1,6 +1,6 @@
 import { merge } from '@fathym/common';
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { PageProps } from '@fathym/eac-applications/runtime/preact';
+import { PageProps } from '@fathym/eac-applications/preact';
 import { EaCWebState } from '../../../src/state/EaCWebState.ts';
 import SiteFrame from '../../components/SiteFrame.tsx';
 

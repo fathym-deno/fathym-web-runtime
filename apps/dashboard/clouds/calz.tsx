@@ -1,5 +1,5 @@
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { PageProps } from '@fathym/eac-applications/runtime/preact';
+import { PageProps } from '@fathym/eac-applications/preact';
 import type { Location } from 'npm:@azure/arm-subscriptions@5.1.0';
 import { mergeWithArrays, redirectRequest } from '@fathym/common';
 import { CloudCALZForm } from '@fathym/atomic-design-kit';
