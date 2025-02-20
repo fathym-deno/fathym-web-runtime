@@ -165,14 +165,12 @@ export default function GitHubApp({}: PageProps<GitHubAppPageData>) {
         })}
 
         <ActionGroup class='mt-8 flex-col'>
-          <>
-            <Action
-              type='submit'
-              class='w-full md:w-auto text-white font-bold m-1 py-2 px-4 rounded focus:outline-none shadow-lg'
-            >
-              Add GitHub App
-            </Action>
-          </>
+          <Action
+            type='submit'
+            class='w-full md:w-auto text-white font-bold m-1 py-2 px-4 rounded focus:outline-none shadow-lg'
+          >
+            Add GitHub App
+          </Action>
         </ActionGroup>
       </form>
     </div>

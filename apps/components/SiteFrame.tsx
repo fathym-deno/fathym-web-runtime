@@ -6,10 +6,7 @@ export type SiteFrameProps = {
   title?: string;
 } & Omit<JSX.HTMLAttributes<HTMLElement>, 'title'>;
 
-export default function SiteFrame({
-  children,
-  title,
-}: SiteFrameProps) {
+export default function SiteFrame({ children, title }: SiteFrameProps) {
   return (
     <html>
       <head>
@@ -23,8 +20,7 @@ export default function SiteFrame({
         <link
           href='https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap'
           rel='stylesheet'
-        >
-        </link>
+        />
 
         <link
           rel='stylesheet'

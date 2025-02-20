@@ -1,7 +1,7 @@
 import { MSALPlugin } from '@fathym/msal';
 import { createOAuthHelpers } from '@fathym/common/oauth';
-import { EaCRuntimePlugin, EaCRuntimePluginConfig } from '@fathym/eac/runtime/plugins';
-import { EaCRuntimeConfig } from '@fathym/eac/runtime/config';
+import { EaCRuntimeConfig, EaCRuntimePluginConfig } from '@fathym/eac/runtime/config';
+import { EaCRuntimePlugin } from '@fathym/eac/runtime/plugins';
 import { EverythingAsCode } from '@fathym/eac';
 import { EverythingAsCodeApplications } from '@fathym/eac-applications';
 import { EverythingAsCodeDenoKV } from '@fathym/eac-deno-kv';
