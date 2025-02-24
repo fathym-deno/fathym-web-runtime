@@ -51,7 +51,6 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, CALZPageData> = {
       );
 
       const locationsResp = await eacAzureSvc.Cloud.Locations(
-        ctx.State.EaC!.EnterpriseLookup!,
         data.cloudLookup!,
         svcDef,
       );

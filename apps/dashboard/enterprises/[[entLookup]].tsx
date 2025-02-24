@@ -1,4 +1,7 @@
-import { EaCManageForm, EnterpriseManagementItem } from '@fathym/atomic-design-kit';
+import {
+  EaCManageForm,
+  EnterpriseManagementItem,
+} from '@fathym/atomic-design-kit';
 import { redirectRequest } from '@fathym/common';
 import { EaCUserRecord, EverythingAsCode } from '@fathym/eac';
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
@@ -10,11 +13,14 @@ import {
   waitForStatus,
   waitForStatusWithFreshJwt,
 } from '@fathym/eac/steward/status';
+import { eacActuators } from '../../../configs/eac-actuators.config.ts';
 
 type EnterprisePageData = {
   CurrentEnterpriseLookup?: string;
 
   Enterprises: EaCUserRecord[];
+
+  ManageEaC?: EverythingAsCode;
 };
 
 export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
@@ -22,15 +28,25 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
     const data: EnterprisePageData = {
       CurrentEnterpriseLookup: ctx.State.EaC?.EnterpriseLookup,
       Enterprises: [],
+      ManageEaC: undefined,
     };
 
     if (ctx.State.EaC) {
-      const eacSvc = await loadEaCStewardSvc();
+      const parentEaCSvc = await loadEaCStewardSvc();
 
-      data.Enterprises = await eacSvc.EaC.ListForUser(
+      data.Enterprises = await parentEaCSvc.EaC.ListForUser(
         ctx.State.Username!,
-        ctx.Runtime.EaC.EnterpriseLookup,
+        ctx.Runtime.EaC.EnterpriseLookup
       );
+    }
+
+    if (ctx.Params.entLookup && ctx.State.Username) {
+      const eacSvc = await loadEaCStewardSvc(
+        ctx.Params.entLookup,
+        ctx.State.Username
+      );
+
+      data.ManageEaC = await eacSvc.EaC.Get();
     }
 
     return ctx.Render(data);
@@ -45,6 +61,7 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
         Name: formData.get('name') as string,
         Description: formData.get('description') as string,
       },
+      Actuators: eacActuators,
     };
 
     const parentEaCSvc = await loadEaCStewardSvc();
@@ -52,14 +69,14 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
     const createResp = await parentEaCSvc.EaC.Create(
       newEaC,
       ctx.State.Username!,
-      60,
+      60
     );
 
     const status = await waitForStatusWithFreshJwt(
       parentEaCSvc,
       createResp.EnterpriseLookup,
       createResp.CommitID,
-      ctx.State.Username!,
+      ctx.State.Username!
     );
 
     const denoKv = await ctx.Runtime.IoC.Resolve(Deno.Kv, 'eac');
@@ -69,27 +86,20 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
         .atomic()
         .set(
           ['User', ctx.State.Username!, 'Current', 'EnterpriseLookup'],
-          createResp.EnterpriseLookup,
+          createResp.EnterpriseLookup
         )
         .delete(['User', ctx.State.Username!, 'Current', 'CloudLookup'])
-        .delete([
-          'User',
-          ctx.State.Username!,
-          'Current',
-          'ResourceGroupLookup',
-        ])
+        .delete(['User', ctx.State.Username!, 'Current', 'ResourceGroupLookup'])
         .commit();
 
       return redirectRequest(ctx.Runtime.URLMatch.Base, false, false);
     } else {
       return redirectRequest(
-        `${ctx.Runtime.URLMatch.Base}?error=${
-          encodeURIComponent(
-            status.Messages['Error'] as string,
-          )
-        }&commitId=${createResp.CommitID}`,
+        `${ctx.Runtime.URLMatch.Base}?error=${encodeURIComponent(
+          status.Messages['Error'] as string
+        )}&commitId=${createResp.CommitID}`,
         false,
-        false,
+        false
       );
     }
   },
@@ -97,13 +107,15 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
   async PUT(req, ctx) {
     const eac: EverythingAsCode = await req.json();
 
+    eac.Actuators = eacActuators;
+
     const denoKv = await ctx.Runtime.IoC.Resolve(Deno.Kv, 'eac');
 
     await denoKv
       .atomic()
       .set(
         ['User', ctx.State.Username!, 'Current', 'EnterpriseLookup'],
-        eac.EnterpriseLookup,
+        eac.EnterpriseLookup
       )
       .delete(['User', ctx.State.Username!, 'Current', 'CloudLookup'])
       .delete(['User', ctx.State.Username!, 'Current', 'ResourceGroupLookup'])
@@ -117,7 +129,7 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
 
     const eacSvc = await loadEaCStewardSvc(
       eac.EnterpriseLookup!,
-      ctx.State.Username!,
+      ctx.State.Username!
     );
 
     // deno-lint-ignore no-explicit-any
@@ -126,7 +138,7 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
     const _status = await waitForStatus(
       eacSvc,
       eac.EnterpriseLookup!,
-      deleteResp.CommitID,
+      deleteResp.CommitID
     );
 
     if (ctx.State.EaC?.EnterpriseLookup === eac.EnterpriseLookup) {
@@ -136,12 +148,7 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
         .atomic()
         .delete(['User', ctx.State.Username!, 'Current', 'EnterpriseLookup'])
         .delete(['User', ctx.State.Username!, 'Current', 'CloudLookup'])
-        .delete([
-          'User',
-          ctx.State.Username!,
-          'Current',
-          'ResourceGroupLookup',
-        ])
+        .delete(['User', ctx.State.Username!, 'Current', 'ResourceGroupLookup'])
         .commit();
     }
 
@@ -152,20 +159,27 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
 export default function Enterprises({ Data }: PageProps<EnterprisePageData>) {
   return (
     <>
-      <EaCManageForm action='' />
+      <EaCManageForm
+        action=""
+        entLookup={Data.ManageEaC?.EnterpriseLookup || ''}
+        entName={Data.ManageEaC?.Details?.Name || ''}
+        entDescription={Data.ManageEaC?.Details?.Description || ''}
+      />
 
-      <div class='max-w-sm m-auto'>
-        <div class='border-b-[1px] border-dotted border-slate-400 dark:border-slate-700'></div>
+      <div class="max-w-sm m-auto">
+        <div class="border-b-[1px] border-dotted border-slate-400 dark:border-slate-700"></div>
 
         {Data.Enterprises &&
           Data.Enterprises.map((enterprise) => {
             return (
               <EnterpriseManagementItem
-                active={Data.CurrentEnterpriseLookup === enterprise.EnterpriseLookup}
+                active={
+                  Data.CurrentEnterpriseLookup === enterprise.EnterpriseLookup
+                }
                 enterprise={enterprise}
                 manage={false}
-                deleteActionPath='./enterprises'
-                setActiveActionPath='./enterprises'
+                deleteActionPath="./enterprises"
+                setActiveActionPath="./enterprises"
               />
             );
           })}
