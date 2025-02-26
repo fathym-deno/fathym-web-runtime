@@ -39,14 +39,13 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, AzurePageData> = {
 
     const svcCalls: (() => Promise<void>)[] = [];
 
-    const eacAzureSvc = await loadEaCAzureAPISvc(ctx.State.EaCJWT!);
-
     if (ctx.State.AzureAccessToken) {
+      const eacAzureSvc = await loadEaCAzureAPISvc(ctx.State.EaCJWT!);
+
       const _provider = ctx.Runtime.EaC.Providers!['azure']!;
 
       svcCalls.push(async () => {
         const tenants = await eacAzureSvc.Azure.Tenants(
-          ctx.State.EaC!.EnterpriseLookup!,
           ctx.State.AzureAccessToken!,
         );
 
@@ -59,7 +58,6 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, AzurePageData> = {
 
         // svcCalls.push(async () => {
         const subs = await eacAzureSvc.Azure.Subscriptions(
-          ctx.State.EaC!.EnterpriseLookup!,
           ctx.State.AzureAccessToken!,
         );
 
@@ -72,7 +70,6 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, AzurePageData> = {
 
         // svcCalls.push(async () => {
         const billingAccounts = await eacAzureSvc.Azure.BillingAccounts(
-          ctx.State.EaC!.EnterpriseLookup!,
           ctx.State.AzureAccessToken!,
         );
 

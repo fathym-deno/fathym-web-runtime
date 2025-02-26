@@ -1,4 +1,4 @@
-// import { ChatSet } from '@fathym/atomic-design-kit';
+import { ChatSet } from '@fathym/atomic-design-kit';
 import { merge } from '@fathym/common';
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
 import { EaCWebState } from '../../src/state/EaCWebState.ts';
@@ -7,9 +7,9 @@ import SiteFrame from '../components/SiteFrame.tsx';
 import { PageProps } from '@fathym/eac-applications/preact';
 
 export type MainLayoutData = {
-  // ActiveChat?: string;
+  ActiveChat?: string;
 
-  // Chats: Record<string, ChatSet>;
+  Chats?: Record<string, ChatSet>;
 
   EaCJWT: string;
 

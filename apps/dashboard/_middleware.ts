@@ -36,7 +36,7 @@ export default [
         ctx.State.Username!,
       );
 
-      eac = await eacSvc.EaC.Get(currentEntLookup.value);
+      eac = await eacSvc.EaC.Get();
     } else {
       const parentEaCSvc = await loadEaCStewardSvc();
 
@@ -56,7 +56,7 @@ export default [
           ctx.State.Username!,
         );
 
-        eac = await eacSvc.EaC.Get(eacs[0].EnterpriseLookup);
+        eac = await eacSvc.EaC.Get();
       }
       // else {
       //   throw new Deno.errors.NotFound(
@@ -185,7 +185,6 @@ export default [
 
         try {
           await eacAzureSvc.Azure.Tenants(
-            ctx.State.EaC!.EnterpriseLookup!,
             currentAccTok.value!,
           );
 
