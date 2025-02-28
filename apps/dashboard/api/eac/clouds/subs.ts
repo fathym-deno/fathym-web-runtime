@@ -5,7 +5,7 @@ import { EverythingAsCode } from '@fathym/eac';
 import { EaCCloudDetails, EverythingAsCodeClouds } from '@fathym/eac-azure';
 import { loadEaCStewardSvc } from '@fathym/eac/steward/clients';
 import { EaCStatusProcessingTypes, waitForStatus } from '@fathym/eac/steward/status';
-import { eacActuators } from '../../../../../configs/eac-actuators.config.ts';
+import { loadEaCActuators } from '../../../../../configs/eac-actuators.config.ts';
 
 export const handler: EaCRuntimeHandlers<EaCWebState> = {
   async POST(req, ctx) {
@@ -15,7 +15,7 @@ export const handler: EaCRuntimeHandlers<EaCWebState> = {
 
     const eac: EverythingAsCode & EverythingAsCodeClouds = {
       EnterpriseLookup: ctx.State.EaC!.EnterpriseLookup,
-      Actuators: eacActuators,
+      Actuators: loadEaCActuators(),
       Clouds: {
         [cloudLookup]: {
           Token: ctx.State.AzureAccessToken!,

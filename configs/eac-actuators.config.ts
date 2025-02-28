@@ -1,37 +1,41 @@
 import { EaCModuleActuators } from '@fathym/eac';
 
-export const eacActuators: EaCModuleActuators = {
-  $Force: true,
-  Clouds: {
-    APIPath: 'http://localhost:5500/api/steward/clouds/azure',
-    Order: 100,
-  },
-  DevOpsActions: {
-    APIPath: 'http://localhost:5500/api/eac/handlers/devops-actions',
-    Order: 400,
-  },
-  GitHubApps: {
-    APIPath: 'http://localhost:5500/api/eac/handlers/github-apps',
-    Order: 100,
-  },
-  IoT: {
-    APIPath: 'http://localhost:5500/api/eac/handlers/iot',
-    Order: 200,
-  },
-  Licenses: {
-    APIPath: 'http://localhost:5500/api/eac/handlers/licenses',
-    Order: 200,
-  },
-  Secrets: {
-    APIPath: 'http://localhost:5500/api/steward/secrets/azure',
-    Order: 300,
-  },
-  SourceConnections: {
-    APIPath: 'http://localhost:5500/api/eac/handlers/source-connections',
-    Order: 300,
-  },
-  Sources: {
-    APIPath: 'http://localhost:5500/api/eac/handlers/sources',
-    Order: 500,
-  },
-} as unknown as EaCModuleActuators;
+export const loadEaCActuators: () => EaCModuleActuators = () => {
+  const base = Deno.env.get('EaCStewardClient_URL');
+
+  return {
+    $Force: true,
+    Clouds: {
+      APIPath: new URL('./clouds/azure', base),
+      Order: 100,
+    },
+    DevOpsActions: {
+      APIPath: new URL('./handlers/devops-actions', base),
+      Order: 400,
+    },
+    GitHubApps: {
+      APIPath: new URL('./handlers/github-apps', base),
+      Order: 100,
+    },
+    IoT: {
+      APIPath: new URL('./handlers/iot', base),
+      Order: 200,
+    },
+    Licenses: {
+      APIPath: new URL('./handlers/licenses', base),
+      Order: 200,
+    },
+    Secrets: {
+      APIPath: new URL('./secrets/azure', base),
+      Order: 300,
+    },
+    SourceConnections: {
+      APIPath: new URL('./handlers/source-connections', base),
+      Order: 300,
+    },
+    Sources: {
+      APIPath: new URL('./handlers/sources', base),
+      Order: 500,
+    },
+  } as unknown as EaCModuleActuators;
+};
