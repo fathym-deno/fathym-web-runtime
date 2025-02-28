@@ -10,7 +10,7 @@ import {
   waitForStatus,
   waitForStatusWithFreshJwt,
 } from '@fathym/eac/steward/status';
-import { eacActuators } from '../../../configs/eac-actuators.config.ts';
+import { loadEaCActuators } from '../../../configs/eac-actuators.config.ts';
 
 type EnterprisePageData = {
   CurrentEnterpriseLookup?: string;
@@ -58,7 +58,7 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
         Name: formData.get('name') as string,
         Description: formData.get('description') as string,
       },
-      Actuators: eacActuators,
+      Actuators: loadEaCActuators(),
     };
 
     const parentEaCSvc = await loadEaCStewardSvc();
@@ -106,7 +106,7 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
   async PUT(req, ctx) {
     const eac: EverythingAsCode = await req.json();
 
-    eac.Actuators = eacActuators;
+    eac.Actuators = loadEaCActuators();
 
     const denoKv = await ctx.Runtime.IoC.Resolve(Deno.Kv, 'eac');
 
