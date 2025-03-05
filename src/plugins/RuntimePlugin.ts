@@ -78,13 +78,13 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
             },
             ModifierResolvers: {
               googleTagMgr: {
-                Priority: 5000
+                Priority: 5000,
               },
               keepAlive: {
                 Priority: 5000,
               },
               msAppInsights: {
-                Priority: 5000
+                Priority: 5000,
               },
               oauth: {
                 Priority: 8000,
@@ -476,7 +476,8 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
             Details: {
               Type: 'MSAppInsights',
               Name: 'Microsoft Application Insights',
-              Description: 'Adds code to pages to support Microsoft Azure Application Insights and other actions',
+              Description:
+                'Adds code to pages to support Microsoft Azure Application Insights and other actions',
               InstrumentationKey: Deno.env.get('APP_INSIGHTS_INSTRUMENTATION_KEY')!,
             } as EaCMSAppInsightsModifierDetails,
           },
