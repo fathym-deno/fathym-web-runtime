@@ -2,41 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply bg-[#0a1f44] text-white font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-neon-blue font-bold tracking-wide;
+  }
+
+  a {
+    @apply text-neon-green hover:text-neon-blue transition duration-300 ease-in-out;
+  }
+
+  button {
+    @apply px-4 py-2 font-semibold text-white bg-neon-blue rounded-lg shadow-md hover:bg-neon-green
+      transition duration-300;
+  }
+}
+
 @layer components {
   /* Firefox */
   * {
     scrollbar-width: thin;
-    scrollbar-color: blue white;
+    scrollbar-color: #00a3ff #0a1f44;
   }
 
   /* Chrome, Edge and Safari */
   *::-webkit-scrollbar {
-    height: 4px;
-    width: 4px;
+    height: 6px;
+    width: 6px;
   }
   *::-webkit-scrollbar-track {
-    border-radius: 3px;
-    background-color: rgb(255 0 0 0.5);
-  }
-
-  *::-webkit-scrollbar-track:hover {
-    background-color: #b8c0c2;
-  }
-
-  *::-webkit-scrollbar-track:active {
-    background-color: #b8c0c2;
+    background-color: #1c1f26;
+    border-radius: 5px;
   }
 
   *::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: #080c75;
+    background-color: #00a3ff;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    background-color: #1c69a3;
+    background-color: #00ff87;
+  }
+}
+
+@layer utilities {
+  .glow {
+    box-shadow: 0 0 10px #00a3ff, 0 0 20px #00a3ff;
   }
 
-  *::-webkit-scrollbar-thumb:active {
-    background-color: #379ca3;
+  .glow-hover:hover {
+    box-shadow: 0 0 15px #00ff87, 0 0 25px #00ff87;
+  }
+
+  .transition-fade {
+    transition: opacity 0.3s ease-in-out;
   }
 }
