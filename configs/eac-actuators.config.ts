@@ -22,7 +22,7 @@ export const loadEaCActuators: () => EaCModuleActuators = () => {
       Order: 200,
     },
     Licenses: {
-      APIPath: new URL('./licensing', base),
+      APIPath: new URL('./licenses', base),
       Order: 200,
     },
     Secrets: {
