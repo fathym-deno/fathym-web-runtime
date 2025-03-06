@@ -13,16 +13,16 @@ export const loadEaCActuators: () => EaCModuleActuators = () => {
       APIPath: new URL('./devops-actions', base),
       Order: 400,
     },
-    GitHubApps: {
-      APIPath: new URL('./github-apps', base),
-      Order: 100,
-    },
+    // GitHubApps: {
+    //   APIPath: new URL('./github-apps', base),
+    //   Order: 100,
+    // },
     IoT: {
       APIPath: new URL('./iot', base),
       Order: 200,
     },
     Licenses: {
-      APIPath: new URL('./licenses', base),
+      APIPath: new URL('./licensing', base),
       Order: 200,
     },
     Secrets: {
