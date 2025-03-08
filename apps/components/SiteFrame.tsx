@@ -3,6 +3,7 @@ import { Action, ActionStyleTypes, Header, Logo } from '@fathym/atomic-design-ki
 
 export type SiteFrameProps = {
   children: ComponentChildren;
+
   title?: string;
 } & Omit<JSX.HTMLAttributes<HTMLElement>, 'title'>;
 
