@@ -1,7 +1,7 @@
 import { EaCModuleActuators } from '@fathym/eac';
 
 export const loadEaCActuators: () => EaCModuleActuators = () => {
-  const base = Deno.env.get('EaCStewardClient_URL');
+  const base = Deno.env.get('EaCStewardAPIs_URL');
 
   return {
     $Force: true,
