@@ -60,12 +60,12 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, AzurePageData> = {
         const subs = await eacAzureSvc.Azure.Subscriptions(
           ctx.State.AzureAccessToken!,
         );
-
-        data.subs = subs.reduce((acc, sub) => {
-          acc[sub.subscriptionId!] = sub.displayName!;
-
-          return acc;
-        }, {} as Record<string, string>);
+        data.subs = subs
+          .sort((a, b) => a.displayName?.localeCompare(b.displayName!) ?? 0) // Corrected sorting
+          .reduce((acc, sub) => {
+            acc[sub.subscriptionId!] = sub.displayName!;
+            return acc;
+          }, {} as Record<string, string>);
         // });
 
         // svcCalls.push(async () => {
