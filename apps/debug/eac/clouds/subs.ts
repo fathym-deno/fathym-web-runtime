@@ -1,11 +1,11 @@
 import { redirectRequest } from '@fathym/common';
-import { EaCWebState } from '../../../../../src/state/EaCWebState.ts';
+import { EaCWebState } from '../../../../src/state/EaCWebState.ts';
 import { EaCRuntimeHandlers } from '@fathym/eac/runtime/pipelines';
 import { EverythingAsCode } from '@fathym/eac';
 import { EaCCloudDetails, EverythingAsCodeClouds } from '@fathym/eac-azure';
 import { loadEaCStewardSvc } from '@fathym/eac/steward/clients';
 import { EaCStatusProcessingTypes, waitForStatus } from '@fathym/eac/steward/status';
-import { loadEaCActuators } from '../../../../../configs/eac-actuators.config.ts';
+import { loadEaCActuators } from '../../../../configs/eac-actuators.config.ts';
 
 export const handler: EaCRuntimeHandlers<EaCWebState> = {
   async POST(req, ctx) {

@@ -1,7 +1,7 @@
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { EaCWebState } from '../../../../src/state/EaCWebState.ts';
+import { EaCWebState } from '../../../src/state/EaCWebState.ts';
 import { EverythingAsCode } from '@fathym/eac';
-import { loadEaCActuators } from '../../../../configs/eac-actuators.config.ts';
+import { loadEaCActuators } from '../../../configs/eac-actuators.config.ts';
 import { loadEaCStewardSvc } from '@fathym/eac/steward/clients';
 import { waitForStatus } from '@fathym/eac/steward/status';
 import { redirectRequest } from '@fathym/common';

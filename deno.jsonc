@@ -30,10 +30,10 @@
     "@fathym/atomic-icons": "jsr:@fathym/atomic-icons@0.0.82",
     "@fathym/code-editor": "jsr:@fathym/code-editor@0.0.25",
     "@fathym/common": "jsr:@fathym/common@0.2.179",
-    "@fathym/eac": "jsr:@fathym/eac@0.2.96",
+    "@fathym/eac": "jsr:@fathym/eac@0.2.97",
     // "@fathym/eac/dfs/resolvers": "../eac/src/dfs/resolvers/.exports.ts",11
     // "@fathym/eac/steward/status": "../eac/src/steward/status/.exports.ts",
-    "@fathym/eac-applications": "jsr:@fathym/eac-applications@0.0.112",
+    "@fathym/eac-applications": "jsr:@fathym/eac-applications@0.0.119",
     // "@fathym/eac-applications/preact": "../eac-applications/src/preact/.exports.ts", 
     // "@fathym/eac-applications/runtime": "../eac-applications/src/runtime/_/.exports.ts",
     // "@fathym/eac-applications/runtime/plugins": "../eac-applications/src/runtime/plugins/.exports.ts",

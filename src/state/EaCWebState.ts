@@ -1,16 +1,11 @@
 import { EverythingAsCode } from '@fathym/eac';
 import { EverythingAsCodeClouds } from '@fathym/eac-azure';
+import { CurrentEaCState } from '@fathym/eac-applications/steward/api';
 
 export type EaCWebState = {
   AzureAccessToken?: string;
 
   CloudLookup?: string;
 
-  EaC?: EverythingAsCode & EverythingAsCodeClouds;
-
-  EaCJWT?: string;
-
   ResourceGroupLookup?: string;
-
-  Username?: string;
-};
+} & CurrentEaCState<EverythingAsCode & EverythingAsCodeClouds>;

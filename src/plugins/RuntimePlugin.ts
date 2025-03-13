@@ -31,6 +31,7 @@ import { FathymAzureContainerCheckPlugin } from '@fathym/eac-applications/runtim
 import { EaCMSALProcessor } from '@fathym/msal';
 import EaCMSALPlugin from './EaCMSALPlugin.ts';
 import { EaCAzureADB2CProviderDetails, EaCAzureADProviderDetails } from '@fathym/eac-identity';
+import { EaCAPIProcessor } from 'jsr:@fathym/eac-applications@0.0.112/processors';
 
 export default class RuntimePlugin implements EaCRuntimePlugin {
   constructor() {}
@@ -91,8 +92,8 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               },
             },
             ApplicationResolvers: {
-              apiProxy: {
-                PathPattern: '/api/eac/*',
+              debug: {
+                PathPattern: '/debug/*',
                 Priority: 200,
               },
               atomicIcons: {
@@ -150,17 +151,16 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
           },
         },
         Applications: {
-          apiProxy: {
+          debug: {
             Details: {
               Name: 'EaC API Proxy',
               Description: 'A proxy for the EaC API service.',
             },
             ModifierResolvers: {},
             Processor: {
-              Type: 'Proxy',
-              ProxyRoot: Deno.env.get('EAC_API_BASE_URL') ??
-                'http://localhost:6130/api/eac/',
-            } as EaCProxyProcessor,
+              Type: 'API',
+              DFSLookup: 'local:apps/debug',
+            } as EaCAPIProcessor,
           },
           atomicIcons: {
             Details: {
@@ -394,6 +394,15 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
             Details: {
               Type: 'Local',
               FileRoot: './apps/dashboard/',
+              DefaultFile: 'index.tsx',
+              Extensions: ['tsx'],
+              WorkerPath: import.meta.resolve('@fathym/eac/dfs/workers/local'),
+            } as EaCLocalDistributedFileSystemDetails,
+          },
+          'local:apps/debug': {
+            Details: {
+              Type: 'Local',
+              FileRoot: './apps/debug/',
               DefaultFile: 'index.tsx',
               Extensions: ['tsx'],
               WorkerPath: import.meta.resolve('@fathym/eac/dfs/workers/local'),

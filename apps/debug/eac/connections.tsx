@@ -1,5 +1,5 @@
 import { EaCRuntimeHandlerSet } from '@fathym/eac/runtime/pipelines';
-import { EaCWebState } from '../../../../src/state/EaCWebState.ts';
+import { EaCWebState } from '../../../src/state/EaCWebState.ts';
 import { loadEaCStewardSvc } from '@fathym/eac/steward/clients';
 
 export const handler: EaCRuntimeHandlerSet<EaCWebState> = {
