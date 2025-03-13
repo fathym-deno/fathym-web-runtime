@@ -33,7 +33,7 @@
     "@fathym/eac": "jsr:@fathym/eac@0.2.98-ebpf-nats",
     // "@fathym/eac/dfs/resolvers": "../eac/src/dfs/resolvers/.exports.ts",11
     // "@fathym/eac/steward/status": "../eac/src/steward/status/.exports.ts",
-    "@fathym/eac-applications": "jsr:@fathym/eac-applications@0.0.110-ebpf-nats",
+    "@fathym/eac-applications": "jsr:@fathym/eac-applications@0.0.111-ebpf-nats",
     // "@fathym/eac-applications/preact": "../eac-applications/src/preact/.exports.ts", 
     // "@fathym/eac-applications/runtime": "../eac-applications/src/runtime/_/.exports.ts",
     // "@fathym/eac-applications/runtime/plugins": "../eac-applications/src/runtime/plugins/.exports.ts",
