@@ -11,7 +11,10 @@ type EnterpriseAgentsData = {
   Enterprises: EaCUserRecord[];
 };
 
-export const handler: EaCRuntimeHandlerSet<EnterpriseAgentState, EnterpriseAgentsData> = {
+export const handler: EaCRuntimeHandlerSet<
+  EnterpriseAgentState,
+  EnterpriseAgentsData
+> = {
   async GET(_req, ctx) {
     const data: EnterprisePageData = {
       CurrentEnterpriseLookup: ctx.State.EaC?.EnterpriseLookup,
@@ -19,12 +22,12 @@ export const handler: EaCRuntimeHandlerSet<EnterpriseAgentState, EnterpriseAgent
     };
 
     if (ctx.State.EaC) {
-      const eacSvc = await loadEaCSvc();
-
-      data.Enterprises = await eacSvc.ListForUser(
+      const eacSvc = await loadEaCSvc(
+        ctx.Runtime.EaC.EnterpriseLookup!,
         ctx.State.Username!,
-        ctx.Runtime.EaC.EnterpriseLookup,
       );
+
+      data.Enterprises = await eacSvc.ListForUser();
     }
 
     return ctx.Render(data);
@@ -66,12 +69,7 @@ export const handler: EaCRuntimeHandlerSet<EnterpriseAgentState, EnterpriseAgent
           createResp.EnterpriseLookup,
         )
         .delete(['User', ctx.State.Username!, 'Current', 'CloudLookup'])
-        .delete([
-          'User',
-          ctx.State.Username!,
-          'Current',
-          'ResourceGroupLookup',
-        ])
+        .delete(['User', ctx.State.Username!, 'Current', 'ResourceGroupLookup'])
         .commit();
 
       return redirectRequest(ctx.Runtime.URLMatch.Base, false, false);
@@ -109,10 +107,7 @@ export const handler: EaCRuntimeHandlerSet<EnterpriseAgentState, EnterpriseAgent
   async DELETE(req, ctx) {
     const eac: EverythingAsCode = await req.json();
 
-    const eacSvc = await loadEaCSvc(
-      eac.EnterpriseLookup!,
-      ctx.State.Username!,
-    );
+    const eacSvc = await loadEaCSvc(eac.EnterpriseLookup!, ctx.State.Username!);
 
     const deleteResp = await eacSvc.Delete(eac, true, 60);
 
@@ -129,12 +124,7 @@ export const handler: EaCRuntimeHandlerSet<EnterpriseAgentState, EnterpriseAgent
         .atomic()
         .delete(['User', ctx.State.Username!, 'Current', 'EnterpriseLookup'])
         .delete(['User', ctx.State.Username!, 'Current', 'CloudLookup'])
-        .delete([
-          'User',
-          ctx.State.Username!,
-          'Current',
-          'ResourceGroupLookup',
-        ])
+        .delete(['User', ctx.State.Username!, 'Current', 'ResourceGroupLookup'])
         .commit();
     }
 
@@ -144,7 +134,9 @@ export const handler: EaCRuntimeHandlerSet<EnterpriseAgentState, EnterpriseAgent
 
 export const circuit: EaCGraphCircuitDetails = {};
 
-export default function EnterprisesAgent({ Data }: PageProps<EnterprisePageData>) {
+export default function EnterprisesAgent({
+  Data,
+}: PageProps<EnterprisePageData>) {
   return (
     <>
       <EaCManageForm action='' />

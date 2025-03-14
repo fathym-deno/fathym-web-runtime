@@ -29,12 +29,12 @@ export const handler: EaCRuntimeHandlerSet<EaCWebState, EnterprisePageData> = {
     };
 
     if (ctx.State.EaC) {
-      const parentEaCSvc = await loadEaCStewardSvc();
-
-      data.Enterprises = await parentEaCSvc.EaC.ListForUser(
+      const parentEaCSvc = await loadEaCStewardSvc(
+        ctx.Runtime.EaC.EnterpriseLookup!,
         ctx.State.Username!,
-        ctx.Runtime.EaC.EnterpriseLookup,
       );
+
+      data.Enterprises = await parentEaCSvc.EaC.ListForUser();
     }
 
     if (ctx.Params.entLookup && ctx.State.Username) {
