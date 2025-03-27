@@ -93,8 +93,10 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
             },
             ApplicationResolvers: {
               debug: {
-                PathPattern: '/debug/*',
+                PathPattern: '/debug*',
                 Priority: 200,
+                IsPrivate: true,
+                IsTriggerSignIn: true,
               },
               atomicIcons: {
                 PathPattern: '/icons*',
