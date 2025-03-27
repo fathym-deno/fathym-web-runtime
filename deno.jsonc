@@ -29,7 +29,7 @@
     "@fathym/atomic-design-kit": "jsr:@fathym/atomic-design-kit@0.0.240",
     "@fathym/atomic-icons": "jsr:@fathym/atomic-icons@0.0.83",
     "@fathym/code-editor": "jsr:@fathym/code-editor@0.0.25",
-    "@fathym/common": "jsr:@fathym/common@0.2.179",
+    "@fathym/common": "jsr:@fathym/common@0.2.181",
     "@fathym/eac": "jsr:@fathym/eac@0.2.101",
     // "@fathym/eac/dfs/resolvers": "../eac/src/dfs/resolvers/.exports.ts",11
     // "@fathym/eac/steward/status": "../eac/src/steward/status/.exports.ts",

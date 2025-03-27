@@ -26,7 +26,7 @@ export default function JWT({ Data }: PageProps<JWTPageData>) {
     <div class='mx-auto max-w-sm mt-8'>
       <CopyInput id='jwt' name='jwt' type='text' value={Data.jwt} />
 
-      <p class='mt-8'>The token is good for 1 year.</p>
+      <p class='mt-8'>The token is good for 10 years.</p>
 
       <form class='mt-8'>
         <Action type='submit'>Create New JWT</Action>
