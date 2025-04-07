@@ -127,7 +127,8 @@ export function buildCurrentEaCCloudMiddleware(): EaCRuntimeHandler<EaCWebState>
 
           ctx.State.AzureAccessToken = currentAccTok.value;
         } catch (err) {
-          ctx.Runtime.Logs.Package.warn('AzureAccessToken not working.', err);
+          ctx.Runtime.Logs.Package.warn('AzureAccessToken not working.');
+          ctx.Runtime.Logs.Package.warn(err);
         }
       }
     }
