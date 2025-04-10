@@ -73,6 +73,9 @@ export default class RuntimePlugin implements EaCRuntimePlugin {
               'www.fathym.com': {
                 Hostname: 'www.fathym.com',
               },
+              'www2.fathym.com': {
+                Hostname: 'www2.fathym.com',
+              },
               'fathym-web-runtime.azurewebsites.net': {
                 Hostname: 'fathym-web-runtime.azurewebsites.net',
               },
